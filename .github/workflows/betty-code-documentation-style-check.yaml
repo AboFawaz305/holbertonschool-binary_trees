@@ -10,17 +10,22 @@ jobs:
           repository: hs-hq/Betty
           path: external
           ref: main
+
+      - name: Run Betty Install script
         run: |
           chmod +x external/install.sh
           cd external
           ./install.sh
-      - name: Check Betty Code Style
+
+      - name: Clone the main repo
         uses: actions/checkout@v4
+
+      - name: Check Betty Code Style
         run: |
           cd ${{ github.workspace }}
           betty-style ./*
+
       - name: check Betty Documentation Style
-        uses: actions/checkout@v4
         run: |
           cd ${{ github.workspace }}
           betty-doc ./*
