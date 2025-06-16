@@ -1,0 +1,27 @@
+name: Betty Code & Documentation Styles Check
+on: [push]
+jobs:
+  Check Betty Style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        uses: actions/checkout@v4
+        with:
+          repository: hs-hq/Betty
+          path: external
+          ref: main
+        run: |
+          chmod +x external/install.sh
+          cd external
+          ./install.sh
+      - name: Check Betty Code Style
+        uses: actions/checkout@v4
+        run: |
+          cd ${{ github.workspace }}
+          betty-style ./*
+      - name: check Betty Documentation Style
+        uses: actions/checkout@v4
+        run: |
+          cd ${{ github.workspace }}
+          betty-doc ./*
+
